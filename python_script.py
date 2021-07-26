@@ -12,13 +12,13 @@ day=today.day
 month=today.month
 year=today.year
 weekday=today.weekday()
-#this numbers really are only valid for 2021
 num_dias_mes=[26,24,27,26,26,26,27,26,26,26,26,27]
+dias_extra=[4,0,0,3,5,1,3,6,2,4,0,2]
 #que no sea domindo que no hay boe
 if not (weekday==6):
 	#tenemos que calcular el orden
 	sum_acumulada=sum(num_dias_mes[:month-1])
-	orden=sum_acumulada+day-day//7
+	orden=sum_acumulada+day-(day+dias_extra[month-1])//7
 
 	#el url tiene esta forma
 	url=f"https://www.boe.es/boe/dias/{year}/{str(month).zfill(2)}/{str(day).zfill(2)}/pdfs/BOE-S-2021-{orden}.pdf"
@@ -26,7 +26,7 @@ if not (weekday==6):
 	#descargamos el boe
 	archivo=requests.get(url)
 	nombre=f"{str(day).zfill(2)}_{str(month).zfill(2)}_{year}.pdf"
-	carpeta=f"/home/user/Main_Folder/BOES"
+	carpeta=f"/home/arturo/Documentos/proyectos_programacion/python/CHECK_BOE/BOES"
 
 	#lo primero de todo, vemos que se ha descargado bien
 	if archivo.ok:
@@ -51,7 +51,7 @@ if not (weekday==6):
 
 
 			#leemos la lista de palabras buscadas
-			with open("/home/user/Main_Folder/lista_palabras.txt","r") as palabras_file:
+			with open("/home/arturo/Documentos/proyectos_programacion/python/CHECK_BOE/lista_palabras.txt","r") as palabras_file:
 	    			lista_palabras=[i.strip() for i in palabras_file.read().lower().split("\n") if i]
 			
 			#por ultimo tenemos que hacer una comprobación de las palabras que sí estan, y si no hubiera ninguna mencionar que no había nada
@@ -64,7 +64,7 @@ if not (weekday==6):
 				if result:
 					#result=list(result)
 					for m,j in enumerate(result):
-						coincidencias_list.append(f"{m+1}.- Palabra \"{i}\", encontrada. Contexto: {texto[j.start()-60:j.start()+60]}.\n\n")
+						coincidencias_list.append(f"{m+1}.- Palabra \"{i}\", encontrada. Contexto: {texto[j.start()-90:j.start()+90]}.\n\n")
 						coincidencias_list_short.append(f"Palabra \"{i}\", encontrada.\n")
 					del result
 			
