@@ -11,4 +11,4 @@ Main Folder
 |_ python_script.py  
 
 
-Note: This can be easily interpolated to other daily-uploaded file by simply changing the URL, but if it is not daily, you may have some trouble with the days y set up for the dowload.
+Note: This can be easily interpolated to other daily-uploaded file by simply changing the URL, but if it is not daily, you may have some trouble with the days and the set up for the dowload.
